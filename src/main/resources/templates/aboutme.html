@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>About Me</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+  <h2>About Me</h2>
+
+  <!-- Form to add or update About Me -->
+  <form th:action="@{/aboutme}" th:object="${aboutMe}" method="post" class="mb-4">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" th:field="*{name}" required>
+    </div>
+    <div class="form-group">
+      <label for="bio">Bio:</label>
+      <textarea class="form-control" id="bio" th:field="*{bio}" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="hobbies">Hobbies:</label>
+      <input type="text" class="form-control" id="hobbies" th:field="*{hobbies}" required>
+    </div>
+    <div class="form-group">
+      <label for="contact">Contact:</label>
+      <input type="text" class="form-control" id="contact" th:field="*{contact}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+
+  <!-- Table displaying About Me entries -->
+  <h3>My Information</h3>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Bio</th>
+      <th>Hobbies</th>
+      <th>Contact</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="aboutMe : ${aboutMeList}">
+      <td th:text="${aboutMe.name}">Name</td>
+      <td th:text="${aboutMe.bio}">Bio</td>
+      <td th:text="${aboutMe.hobbies}">Hobbies</td>
+      <td th:text="${aboutMe.contact}">Contact</td>
+      <td>
+        <a th:href="@{/aboutme/edit/{id}(id=${aboutMe.id})}" class="btn btn-primary btn-sm">Edit</a>
+        <a th:href="@{/aboutme/delete/{id}(id=${aboutMe.id})}" class="btn btn-danger btn-sm">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
